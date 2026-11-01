@@ -1,0 +1,35 @@
+import clsx from "clsx";
+import type { ReactNode } from "react";
+import { Button } from "xtreme-ui";
+
+import "./sideSheet.scss";
+
+const SideSheet = (props: SideSheetProps) => {
+	const { children, className, title, open, setOpen } = props;
+	const classList = clsx("sideSheet", open && "sideSheetOpen", className);
+
+	return (
+		<div className={classList}>
+			<div className="backdrop" onClick={() => setOpen(false)} />
+			<div className="sideContainer">
+				<div className="sheetHeader">
+					<h1 className="title">
+						{title[0]} <span>{title[1]}</span>
+					</h1>
+					<Button icon="f00d" iconType="solid" onClick={() => setOpen(false)} size="mini" />
+				</div>
+				<div className="sheetContent">{children}</div>
+			</div>
+		</div>
+	);
+};
+
+export default SideSheet;
+
+interface SideSheetProps {
+	children: ReactNode;
+	className?: string;
+	open: boolean;
+	setOpen: (open: boolean) => void;
+	title: string[];
+}
